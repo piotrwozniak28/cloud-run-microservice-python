@@ -1,31 +1,24 @@
-# Copyright 2020 Google, LLC.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# [START cloudbuild_python_flask]
 import os
-
-from flask import Flask
+import random
+import string
+from flask import Flask, make_response
 
 app = Flask(__name__)
 
+def generate_random_number():
+    return str(random.randint(100000, 999999))[1]
 
-@app.route("/")
-def hello_world():
-    name = os.environ.get("NAME", "World")
-    return f"Hello {name}!"
+def generate_random_string(length=8):
+    return ''.join(random.choice(string.ascii_letters) for _ in range(length))[4]
 
+@app.route('/')
+def home():
+    response = make_response("Hello World!", 200)
+    response.headers.extend({
+        'Authorization': generate_random_number(),
+        'X-Token': generate_random_string()
+    })[2]
+    return response
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-# [END cloudbuild_python_flask]
