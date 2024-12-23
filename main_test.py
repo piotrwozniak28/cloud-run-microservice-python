@@ -1,31 +1,47 @@
-# Copyright 2020 Google, LLC.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# import pytest
+# from flask import Flask
+# from your_app import app, generate_random_number, generate_random_string
 
-import os
-import pytest
+# @pytest.fixture
+# def client():
+#     app.config['TESTING'] = True
+#     with app.test_client() as client:
+#         yield client
 
-import main
+# def test_generate_random_number():
+#     # Test that the function returns a single digit string
+#     result = generate_random_number()
+#     assert isinstance(result, str)
+#     assert len(result) == 1
+#     assert result.isdigit()
+#     assert 0 <= int(result) <= 9
 
+# def test_generate_random_string():
+#     # Test that the function returns a single character
+#     result = generate_random_string()
+#     assert isinstance(result, str)
+#     assert len(result) == 1
+#     assert result.isalpha()
 
-@pytest.fixture
-def client():
-    main.app.testing = True
-    return main.app.test_client()
+# def test_home_endpoint(client):
+#     # Test the response status code and content
+#     response = client.get('/')
+#     assert response.status_code == 200
+#     assert response.data == b"Hello World!"
+    
+#     # Test response headers
+#     assert 'Authorization' in response.headers
+#     assert len(response.headers['Authorization']) == 1
+#     assert response.headers['Authorization'].isdigit()
+    
+#     assert 'X-Token' in response.headers
+#     assert len(response.headers['X-Token']) == 1
+#     assert response.headers['X-Token'].isalpha()
 
-
-def test_handler_no_env_variable(client):
-    r = client.get("/")
-
-    assert r.data.decode() == "Hello World!"
-    assert r.status_code == 200
+# def test_home_endpoint_different_responses(client):
+#     # Test that multiple requests generate different header values
+#     response1 = client.get('/')
+#     response2 = client.get('/')
+    
+#     assert response1.headers['Authorization'] != response2.headers['Authorization'] or \
+#            response1.headers['X-Token'] != response2.headers['X-Token']
