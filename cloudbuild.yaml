@@ -13,7 +13,7 @@ steps:
     args:
       [
         "build",
-        "--t",
+        "-t",
         "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
         "-t",
         "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest",
