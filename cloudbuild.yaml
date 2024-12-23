@@ -13,8 +13,10 @@ steps:
     args:
       [
         "build",
-        "-t",
+        "--t",
         "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
+        "-t",
+        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest",
         ".",
       ]
 
@@ -24,6 +26,14 @@ steps:
       [
         "push",
         "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
+      ]
+
+  # Push the "latest" tag
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest",
       ]
 
   # Deploy to Cloud Run
@@ -41,6 +51,7 @@ steps:
         "managed",
         "--allow-unauthenticated",
       ]
+
 options:
   logging: CLOUD_LOGGING_ONLY
 
@@ -54,3 +65,4 @@ options:
 # Store images in Google Artifact Registry
 images:
   - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}
+  # - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest
