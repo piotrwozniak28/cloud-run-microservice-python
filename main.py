@@ -6,10 +6,10 @@ from flask import Flask, make_response
 app = Flask(__name__)
 
 def generate_random_number():
-    return str(random.randint(100000, 999999))[1]
+    return ''.join(str(random.randint(0, 9)) for _ in range(16))
 
-def generate_random_string(length=8):
-    return ''.join(random.choice(string.ascii_letters) for _ in range(length))[4]
+def generate_random_string(length=16):
+    return ''.join(random.choice(string.ascii_letters) for _ in range(length))
 
 @app.route('/')
 def home():
@@ -17,7 +17,7 @@ def home():
     response.headers.extend({
         'Authorization': generate_random_number(),
         'X-Token': generate_random_string()
-    })[2]
+    })
     return response
 
 if __name__ == '__main__':
