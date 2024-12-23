@@ -43,7 +43,7 @@ steps:
         "gcloud",
         "run",
         "deploy",
-        "helloworld-${SHORT_SHA}",
+        "hello-0",
         "--image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
         "--region",
         "${LOCATION}",
