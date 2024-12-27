@@ -4,7 +4,7 @@ Modified code example used in [Building Python applications](https://cloud.googl
 # How to install
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
