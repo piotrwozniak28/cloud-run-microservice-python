@@ -14,9 +14,9 @@ steps:
       [
         "build",
         "-t",
-        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
+        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:${SHORT_SHA}",
         "-t",
-        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest",
+        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:latest",
         ".",
       ]
 
@@ -25,7 +25,7 @@ steps:
     args:
       [
         "push",
-        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
+        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:${SHORT_SHA}",
       ]
 
   # Push the "latest" tag
@@ -33,7 +33,7 @@ steps:
     args:
       [
         "push",
-        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest",
+        "${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:latest",
       ]
 
   # Deploy to Cloud Run
@@ -43,8 +43,8 @@ steps:
         "gcloud",
         "run",
         "deploy",
-        "hello-0",
-        "--image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}",
+        "${_APPLICATION_NAME}",
+        "--image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:${SHORT_SHA}",
         "--region",
         "${LOCATION}",
         "--platform",
@@ -64,5 +64,5 @@ options:
 
 # Store images in Google Artifact Registry
 images:
-  - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}
-  # - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:latest
+  - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:${SHORT_SHA}
+  # - ${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/${_APPLICATION_NAME}:latest
