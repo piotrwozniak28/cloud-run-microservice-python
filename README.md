@@ -13,6 +13,7 @@ python -m pip install -r requirements.txt
 # How to run
 
 ```bash
+. .venv/bin/activate
 python main.py
 pytest main_test.py
 ```
